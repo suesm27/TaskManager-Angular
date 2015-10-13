@@ -1,0 +1,67 @@
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js'></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+  <script src="/js/script.js"></script>
+</head>
+<body ng-app='myApp'>
+  <div class="container">
+<div ng-controller='tasksController'>
+  <div class="row">
+    <h3><u>Add a new task</u></h3>
+    <form class='form-horizontal'>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="task">Task Name:</label>
+        <div class="col-sm-10">
+          <input type='text' class="form-control" ng-model='newTask.task'>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="priority">Priority:</label>
+        <div class="col-sm-10">
+          <select class="form-control" ng-model="newTask.priority">
+            <option>HIGH</option>
+            <option>MEDIUM</option>
+            <option>LOW</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="deadline">Deadline:</label>
+        <div class="col-sm-10">
+          <input type='date' class="form-control" ng-model='newTask.deadline'>
+        </div>
+      </div>
+      <input type='submit' value='Create' class='btn btn-sm btn-info pull-right' ng-click='addTask()'>
+    </form>
+  </div>
+
+  <div class="row">
+    <input id="searchbox" class="pull-right" type="text" ng-model="filter_name" placeholder="search tasks...">
+    <h3><u>Tasks</u></h3>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <th>Tasks</th>
+        <th>Priority</th>
+        <th>Deadline</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="task in tasks | filter:filter_name | orderBy:prioritySort track by $index ">
+          <td><span ng-bind='task.task'></span></td>
+          <td><span ng-bind='task.priority'></span></td>
+          <td><span ng-bind='task.deadline'></span></td>
+          <td><span ng-bind='task.created_at'></td>
+          <td><button ng-click='removeTask(task)' class='btn btn-danger btn-sm'>Remove</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </div>
+</body>
+</html>
